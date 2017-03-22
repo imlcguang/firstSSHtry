@@ -8,6 +8,6 @@
 </head>
 <body>
  hi~<br/>
-  ${greeting}  
+  ${greeting}<br/>  alike:${alike}
 </body>
 </html>

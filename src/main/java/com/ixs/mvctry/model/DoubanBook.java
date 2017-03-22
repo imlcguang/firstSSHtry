@@ -15,57 +15,91 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "DoubanBook")
 public class DoubanBook {
-	private String isbn13;
-	private String tags;// 书本标签
+	private String bookid;
 	private String title;
-	private String pages;
 	private String author;
-	private String rating;//评分
-	private String binding;// 装帧：平装(无盘)..
 	private String publisher;
 	private String pubdate;
-	private String summary;
+	private String pages;
+	private String price;
+	private String binding;// 装帧：平装(无盘)..
+	private String isbn13;
+	private String rating;// 评分
+	private String ratenum; // 评价人数
+	private String summary;// 内容简介
+	private String authorsummary;// 作者简介
+	private String tags;// 书本标签
 	private String imagePath;
-	
+	private String doings;//在读
+	private String collections;//读过
+	private String wishes;//想读
 
 	public DoubanBook() {
 	}
 
+
 	@Override
 	public String toString() {
-		return "DoubanBook [isbn13=" + isbn13 + ", tags=" + tags + ", title=" + title + ", pages=" + pages + ", author="
-				+ author + ", rating=" + rating + ", binding=" + binding + ", publisher=" + publisher + ", pubdate="
-				+ pubdate + ", summary=" + summary + ", imagePath=" + imagePath + "]";
+		return "DoubanBook [bookid=" + bookid + ", title=" + title + ", author=" + author + ", publisher=" + publisher
+				+ ", pubdate=" + pubdate + ", pages=" + pages + ", price=" + price + ", binding=" + binding
+				+ ", isbn13=" + isbn13 + ", rating=" + rating + ", ratenum=" + ratenum + ", summary=" + summary
+				+ ", authorsummary=" + authorsummary + ", tags=" + tags + ", imagePath=" + imagePath + ", doings="
+				+ doings + ", collections=" + collections + ", wishes=" + wishes + "]";
 	}
 
-	public DoubanBook(String isbn13, String tags, String title, String pages, String author, String rating,
-			String binding, String publisher, String pubdate, String summary, String imagePath) {
+
+	public DoubanBook(String bookid, String title, String author, String publisher, String pubdate, String pages,
+			String price, String binding, String isbn13, String rating, String ratenum, String summary,
+			String authorsummary, String tags, String imagePath, String doings, String collections, String wishes) {
 		super();
-		this.isbn13 = isbn13;
-		this.tags = tags;
+		this.bookid = bookid;
 		this.title = title;
-		this.pages = pages;
 		this.author = author;
-		this.rating = rating;
-		this.binding = binding;
 		this.publisher = publisher;
 		this.pubdate = pubdate;
+		this.pages = pages;
+		this.price = price;
+		this.binding = binding;
+		this.isbn13 = isbn13;
+		this.rating = rating;
+		this.ratenum = ratenum;
 		this.summary = summary;
+		this.authorsummary = authorsummary;
+		this.tags = tags;
 		this.imagePath = imagePath;
+		this.doings = doings;
+		this.collections = collections;
+		this.wishes = wishes;
 	}
+
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "bookid", nullable = false,unique=true)
+	public String getBookid() {
+		return bookid;
+	}
+	
+	
+	public void setBookid(String bookid) {
+		this.bookid = bookid;
+	}
+	
+	
 	@Column(name = "ISBN13", nullable = false)
 	public String getIsbn13() {
 		return isbn13;
 	}
 
+
+
 	public void setIsbn13(String isbn13) {
 		this.isbn13 = isbn13;
 	}
 
-	@Column(name = "TAGS", nullable = false)
+	@Column(name = "TAGS")
 	public String getTags() {
 		return tags;
 	}
@@ -83,7 +117,7 @@ public class DoubanBook {
 		this.title = title;
 	}
 
-	@Column(name = "PAGES", nullable = false)
+	@Column(name = "PAGES")
 	public String getPages() {
 		return pages;
 	}
@@ -92,7 +126,7 @@ public class DoubanBook {
 		this.pages = pages;
 	}
 
-	@Column(name = "AUTHOR", nullable = false)
+	@Column(name = "AUTHOR")
 	public String getAuthor() {
 		return author;
 	}
@@ -101,7 +135,7 @@ public class DoubanBook {
 		this.author = author;
 	}
 
-	@Column(name = "RATING", nullable = false)
+	@Column(name = "RATING")
 	public String getRating() {
 		return rating;
 	}
@@ -110,7 +144,7 @@ public class DoubanBook {
 		this.rating = rating;
 	}
 
-	@Column(name = "BINDING", nullable = false)
+	@Column(name = "BINDING")
 	public String getBinding() {
 		return binding;
 	}
@@ -119,7 +153,7 @@ public class DoubanBook {
 		this.binding = binding;
 	}
 
-	@Column(name = "PUBLISHER", nullable = false)
+	@Column(name = "PUBLISHER")
 	public String getPublisher() {
 		return publisher;
 	}
@@ -128,7 +162,7 @@ public class DoubanBook {
 		this.publisher = publisher;
 	}
 
-	@Column(name = "PUBDATE", nullable = false)
+	@Column(name = "PUBDATE")
 	public String getPubdate() {
 		return pubdate;
 	}
@@ -140,7 +174,7 @@ public class DoubanBook {
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	@Type(type = "text")
-	@Column(name = "SUMMARY", nullable = false)
+	@Column(name = "SUMMARY")
 	public String getSummary() {
 		return summary;
 	}
@@ -149,7 +183,7 @@ public class DoubanBook {
 		this.summary = summary;
 	}
 
-	@Column(name = "IMAGEPATH", nullable = false)
+	@Column(name = "IMAGEPATH")
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -158,4 +192,66 @@ public class DoubanBook {
 		this.imagePath = imagePath;
 	}
 
+	@Column(name = "price")
+	public String getPrice() {
+		return price;
+	}
+	
+	
+	public void setPrice(String price) {
+		this.price = price;
+	}
+	
+	@Column(name = "Ratenum")
+	public String getRatenum() {
+		return ratenum;
+	}
+	
+	
+	public void setRatenum(String ratenum) {
+		this.ratenum = ratenum;
+	}
+	
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	@Type(type = "text")
+	@Column(name = "AUTHORSUMMARY")
+	public String getAuthorsummary() {
+		return authorsummary;
+	}
+	
+	
+	public void setAuthorsummary(String authorsummary) {
+		this.authorsummary = authorsummary;
+	}
+	
+	@Column(name = "DOINGS")
+	public String getDoings() {
+		return doings;
+	}
+	
+	
+	public void setDoings(String doings) {
+		this.doings = doings;
+	}
+	
+	@Column(name = "COLLECTIONS")
+	public String getCollections() {
+		return collections;
+	}
+	
+	
+	public void setCollections(String collections) {
+		this.collections = collections;
+	}
+	
+	@Column(name = "WISHES")
+	public String getWishes() {
+		return wishes;
+	}
+	
+	
+	public void setWishes(String wishes) {
+		this.wishes = wishes;
+	}
 }
