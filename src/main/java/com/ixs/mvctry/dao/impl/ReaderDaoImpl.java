@@ -24,7 +24,7 @@ public class ReaderDaoImpl implements IReaderDao {
 	@Override
 	public List<Reader> findAllReader() {
 		Session session = this.getSession();
-		String hql = "from Reader ";
+		String hql = "from Reader order by readerid";
 		List<Reader> result = session.createQuery(hql).list();
 		session.close();
 		return result;
