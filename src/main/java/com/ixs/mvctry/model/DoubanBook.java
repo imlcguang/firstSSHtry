@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "DoubanBook")
+@Table(name = "DoubanBooktest500")//记得改！！！！！！
 public class DoubanBook {
 	private String bookid;
 	private String title;

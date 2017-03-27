@@ -12,22 +12,25 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ixs.mvctry.dao.impl.CollectionDaoImpl;
+import com.ixs.mvctry.dao.impl.DouBanBookImpl;
 import com.ixs.mvctry.dao.impl.ReaderDaoImpl;
-import com.ixs.mvctry.model.Book;
 import com.ixs.mvctry.model.Collectbook;
 import com.ixs.mvctry.model.DoubanBook;
 import com.ixs.mvctry.model.Reader;
-import com.ixs.mvctry.model.ReaderAlike;
 import com.ixs.mvctry.service.IReaderService;
 
+@Service
 public class ReaderServiceImpl implements IReaderService {
 
 	@Autowired
 	private ReaderDaoImpl readerDao;
 	@Autowired
 	private CollectionDaoImpl collectionDao;
+	@Autowired
+	private DouBanBookImpl doubanbookDao;
 
 	/**
 	 * 建立用户-书籍map
@@ -69,9 +72,15 @@ public class ReaderServiceImpl implements IReaderService {
 	 */
 	public static ArrayList<Map.Entry<String, Double>> sortMap(Map map) {
 		List<Map.Entry<String, Double>> entries = new ArrayList<Map.Entry<String, Double>>(map.entrySet());
-		Collections.sort(entries, new Comparator<Map.Entry<String, Double>>() {
-			public int compare(Map.Entry<String, Double> obj1, Map.Entry<String, Double> obj2) {
-				return (int) (obj2.getValue() - obj1.getValue());
+		Collections.sort(entries, new Comparator<Map.Entry<String, Double>>() {// 根据value排序
+			public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+				double result = o2.getValue() - o1.getValue();
+				if (result > 0)
+					return 1;
+				else if (result == 0)
+					return 0;
+				else
+					return -1;
 			}
 		});
 		return (ArrayList<Entry<String, Double>>) entries;
@@ -96,62 +105,67 @@ public class ReaderServiceImpl implements IReaderService {
 		for (int i = 0; i < readers.size(); i++) {
 			// 获取readerid
 			String readerid1 = readers.get(i).getReaderID();
-			if (readerid1 == reader.getReaderID()) {
-				System.out.println("reader的编号是第" + i + "个");
-				continue;
-			}
-			// 获取该用户读过的书的集合
-			Set<String> set = uBookMap.get(reader.getReaderID());
-			System.out.println("set:" + set);
-			Set<String> set2 = uBookMap.get(readerid1);
-			System.out.println("用户2读过的书set2:" + set2);
-			// 求交集：移除set2部分（交集），再加上set2
-			Set<String> intersection = new HashSet<String>();
-			intersection.addAll(set);
-			intersection.retainAll(set2);
-			System.out.println("交集" + intersection);
-			// 两用户交集不为0
-			if (intersection.size() != 0) {
-				// 求并集
-				Set<String> union = new HashSet<String>();
-				union.addAll(set);
-				union.addAll(set2);
-				System.out.println("并集" + union);
-				// 矩阵值
-				double alike = (double) intersection.size() / union.size();
-				uAlikeMap.put(readerid1, alike);
-				System.out.println("alike" + reader.getReaderID() + "和" + readerid1 + "的相似度是：" + alike);
-			} else {
+			if (readerid1.equals(reader.getReaderID())) {
 				uAlikeMap.put(readerid1, 0.0);
+			} else {
+
+				// 获取该用户读过的书的集合
+				Set<String> set = uBookMap.get(reader.getReaderID());
+				System.out.println("set:" + set);
+				Set<String> set2 = uBookMap.get(readerid1);
+				System.out.println("用户2读过的书set2:" + set2);
+				// 求交集：移除set2部分（交集），再加上set2
+				Set<String> intersection = new HashSet<String>();
+				intersection.addAll(set);
+				intersection.retainAll(set2);
+				System.out.println("交集" + intersection);
+				// 两用户交集不为0
+				if (intersection.size() != 0) {
+					// 求并集
+					Set<String> union = new HashSet<String>();
+					union.addAll(set);
+					union.addAll(set2);
+					System.out.println("并集" + union);
+					// 矩阵值
+					double alike = (double) intersection.size() / union.size();
+					uAlikeMap.put(readerid1, alike);
+					System.out.println("alike" + reader.getReaderID() + "和" + readerid1 + "的相似度是：" + alike);
+				} else {
+					uAlikeMap.put(readerid1, 0.0);
+				}
+
 			}
 		}
 		// 对map的value值进行排序并取前10个存入uAlikeTopMap中
 		ArrayList<Map.Entry<String, Double>> entries = sortMap(uAlikeMap);
 		// 记得改！！！！！！！！！！！！！
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 5; i++) {
 			System.out.print("相似度第" + i + "名：" + entries.get(i).getKey() + "，相似度为：" + entries.get(i).getValue());
 			uAlikeTopMap.put(entries.get(i).getKey(), entries.get(i).getValue());
 		}
-		return uAlikeMap;
+		System.out.println("相似度排序：" + entries.toString());
+		System.out.println("相似度排名前2的用户：" + uAlikeTopMap.toString());
+		return uAlikeTopMap;
 	}
 
 	/**
 	 * 计算推荐指数
 	 * 
-	 * @param uAlikeTopMap（用户ID，相似度） ubookmap（用户ID，用户读过的书s）
+	 * @param uAlikeTopMap（用户ID，相似度）
+	 *            ubookmap（用户ID，用户读过的书s）
 	 * @return
 	 */
 	public Set<String> getRecomm(Reader reader, Map<String, Double> uAlikeTopMap, Map<String, Set<String>> ubookmap) {
 		// uBookRecommMap（图书ID，推荐指数）
 		Map<String, Double> uBookRecommMap = new TreeMap<String, Double>();
-		Set<String> BookRecommTop=new HashSet<String>();
+		Set<String> BookRecommTop = new HashSet<String>();
 		double result = 0.0;
 		for (String reader2 : uAlikeTopMap.keySet()) {
 			// 遍历reader2读过扣去reader读过的书
 			Set<String> intersection = new HashSet<String>();
 			intersection.addAll(ubookmap.get(reader2));
 			intersection.removeAll(ubookmap.get(reader.getReaderID()));
-			//计算推荐指数
+			// 计算推荐指数
 			for (String bookid : intersection) {
 				if (uBookRecommMap.containsKey(bookid)) {
 					// 获取推荐指数,加上reader的相似度
@@ -164,13 +178,15 @@ public class ReaderServiceImpl implements IReaderService {
 			}
 		}
 		// 对uBookRecommMap（图书ID，推荐指数）进行排序，选出top
-		
-				ArrayList<Map.Entry<String, Double>> entries = sortMap(uBookRecommMap);
-				// 记得改！！！！！！！！！！！！！
-				for (int i = 0; i < 3; i++) {
-					System.out.print("推荐指数第" + i + "名：" + entries.get(i).getKey() + "，推荐指数为：" + entries.get(i).getValue());
-					BookRecommTop.add(entries.get(i).getKey());
-				}
+
+		ArrayList<Map.Entry<String, Double>> entries = sortMap(uBookRecommMap);
+		// 记得改！！！！！！！！！！！！！
+		for (int i = 0; i < 5; i++) {
+			System.out.print("推荐指数第" + i + "名：" + entries.get(i).getKey() + "，推荐指数为：" + entries.get(i).getValue());
+			BookRecommTop.add(entries.get(i).getKey());
+		}
+		System.out.println("推荐指数排序：" + entries.toString());
+		System.out.println("推荐指数前2" + BookRecommTop.toString());
 		return BookRecommTop;
 	}
 
@@ -180,6 +196,7 @@ public class ReaderServiceImpl implements IReaderService {
 		List<Reader> readers = new ArrayList<Reader>();
 		Set<String> recommBooks = new HashSet<String>();
 		Map<String, Double> uAlikeTopMap = new HashMap<String, Double>();
+		List<DoubanBook> result = new ArrayList<DoubanBook>();
 
 		// 取出数据,存入map
 		ubookmap = findUBook();
@@ -191,8 +208,8 @@ public class ReaderServiceImpl implements IReaderService {
 		recommBooks = getRecomm(reader, uAlikeTopMap, ubookmap);
 
 		// 找到对应的豆瓣图书
-		// getDoubanBooks(recommBooks);
-		return null;
+		result = doubanbookDao.findDouBanBook(recommBooks);
+		return result;
 	}
 
 }

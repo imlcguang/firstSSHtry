@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="readertest")//记得改！！！
+@Table(name="readertest500")//记得改！！！
 public class Reader {
 	private String readerID;
 

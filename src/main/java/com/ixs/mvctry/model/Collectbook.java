@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "collectbooktest")//记得改！！！！
+@Table(name = "collectbooktest500")//记得改！！！！
 public class Collectbook {
 	private Integer collectID;
 	private String readerID;

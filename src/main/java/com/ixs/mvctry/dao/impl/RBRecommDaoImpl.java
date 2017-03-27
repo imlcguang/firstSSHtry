@@ -13,13 +13,11 @@ import com.ixs.mvctry.dao.IRBRcommDao;
 import com.ixs.mvctry.dao.IReaderAlikeDao;
 import com.ixs.mvctry.dao.IReaderDao;
 import com.ixs.mvctry.model.Collectbook;
-import com.ixs.mvctry.model.RbRecomm;
 import com.ixs.mvctry.model.Reader;
-import com.ixs.mvctry.model.ReaderAlike;
 
 @Repository
 public class RBRecommDaoImpl implements IRBRcommDao {
-
+/*
 	@Resource
 	private SessionFactory sessionFactory;
 
@@ -48,6 +46,6 @@ public class RBRecommDaoImpl implements IRBRcommDao {
 		List<RbRecomm> result=query.list();
 		return result;
 	}
-
+*/
 
 }

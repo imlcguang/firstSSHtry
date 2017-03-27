@@ -13,12 +13,11 @@ import com.ixs.mvctry.dao.IReaderAlikeDao;
 import com.ixs.mvctry.dao.IReaderDao;
 import com.ixs.mvctry.model.Collectbook;
 import com.ixs.mvctry.model.Reader;
-import com.ixs.mvctry.model.ReaderAlike;
 
 @Repository
 public class ReaderAlikeDaoImpl implements IReaderAlikeDao {
 
-	@Resource
+	/*@Resource
 	private SessionFactory sessionFactory;
 
 	private Session getSession() {
@@ -44,7 +43,7 @@ public class ReaderAlikeDaoImpl implements IReaderAlikeDao {
 		session.close();
 		List<ReaderAlike> result=query.list();
 		return result;
-	}
+	}*/
 		
 
 }

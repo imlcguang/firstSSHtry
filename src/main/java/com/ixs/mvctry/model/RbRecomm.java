@@ -7,8 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="rbrecomm")
+//@Entity
+//@Table(name="rbrecomm")
 public class RbRecomm {
 	private String readerid;
 	private String bookid;
@@ -16,7 +16,7 @@ public class RbRecomm {
 	
 
 	
-	@Id
+	/*@Id
 	@Column(name="READERID", nullable=false)
 	public String getReaderid() {
 		return readerid;
@@ -49,7 +49,7 @@ public class RbRecomm {
 		return "RbRecomm [readerid=" + readerid + ", bookid=" + bookid + ", recomm=" + recomm + "]";
 	}
 	
-
+*/
 	
 	
 }
