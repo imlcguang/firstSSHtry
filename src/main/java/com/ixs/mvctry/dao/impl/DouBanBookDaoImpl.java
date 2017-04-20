@@ -14,7 +14,7 @@ import com.ixs.mvctry.dao.IDouBanBookDao;
 import com.ixs.mvctry.model.DoubanBook;
 import com.ixs.mvctry.model.T_Model;
 @Repository
-public class DouBanBookImpl implements IDouBanBookDao {
+public class DouBanBookDaoImpl implements IDouBanBookDao {
 
 	@Resource
     private SessionFactory sessionFactory;
@@ -24,7 +24,7 @@ public class DouBanBookImpl implements IDouBanBookDao {
     }
 	
 	@Override
-	public List<DoubanBook> findDouBanBook(Set<String> bookids) {
+	public List<DoubanBook> findDouBanBook(List<String> bookids) {
 		Session session = this.getSession();
 		List<DoubanBook> result=new ArrayList<DoubanBook>();
 		for (String id : bookids) {

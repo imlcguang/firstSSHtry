@@ -12,6 +12,6 @@ public interface IDouBanBookDao {
 	 * 
 	 * @param id
 	 */
-	public List<DoubanBook> findDouBanBook(Set<String> bookids);
+	public List<DoubanBook> findDouBanBook(List<String> bookids);
 	
 }

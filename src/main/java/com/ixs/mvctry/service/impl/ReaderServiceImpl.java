@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ixs.mvctry.dao.impl.CollectionDaoImpl;
-import com.ixs.mvctry.dao.impl.DouBanBookImpl;
+import com.ixs.mvctry.dao.impl.DouBanBookDaoImpl;
 import com.ixs.mvctry.dao.impl.ReaderDaoImpl;
 import com.ixs.mvctry.model.Collectbook;
 import com.ixs.mvctry.model.DoubanBook;
@@ -30,7 +30,7 @@ public class ReaderServiceImpl implements IReaderService {
 	@Autowired
 	private CollectionDaoImpl collectionDao;
 	@Autowired
-	private DouBanBookImpl doubanbookDao;
+	private DouBanBookDaoImpl doubanbookDao;
 
 	/**
 	 * 建立用户-书籍map
