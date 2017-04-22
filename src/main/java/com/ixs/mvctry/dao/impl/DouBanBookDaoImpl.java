@@ -26,13 +26,29 @@ public class DouBanBookDaoImpl implements IDouBanBookDao {
 	@Override
 	public List<DoubanBook> findDouBanBook(List<String> bookids) {
 		Session session = this.getSession();
-		List<DoubanBook> result=new ArrayList<DoubanBook>();
+		List<DoubanBook> dbooks=new ArrayList<DoubanBook>();
+		String hql = "FROM doubanbook WHERE bookid = :id ";
 		for (String id : bookids) {
-		DoubanBook doubanBook=	(DoubanBook) session.get(DoubanBook.class, id);
-		result.add(doubanBook);
+			List<DoubanBook> result = session.createQuery(hql).setParameter("id", bookids).list();
+			DoubanBook doubanBook=result.get(0);
+			dbooks.add(doubanBook);
 		}
 		session.close();
-		return result;
+		return dbooks;
 	}
 
+	public List<DoubanBook> findDouBanBookset(Set<String> bookids) {
+		Session session = this.getSession();
+		List<DoubanBook> dbooks=new ArrayList<DoubanBook>();
+		String hql = "FROM doubanbook WHERE bookid = :id ";
+		for (String id : bookids) {
+			List<DoubanBook> result = session.createQuery(hql).setParameter("id", bookids).list();
+			DoubanBook doubanBook=result.get(0);
+			dbooks.add(doubanBook);
+		}
+		session.close();
+		return dbooks;
+	}
+	
+	
 }

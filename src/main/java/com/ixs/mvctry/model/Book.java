@@ -8,14 +8,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="booktest")//记得改！！！
+@Table(name="book")//记得改！！！
 public class Book {
+	private Integer id;
 	private String bookID;
 
 	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="BOOKID", nullable=false)
+	@Column(name="ID", nullable=false)
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	@Column(name="bookid", nullable=false)
 	public String getBookID() {
 		return bookID;
 	}

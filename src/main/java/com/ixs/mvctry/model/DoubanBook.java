@@ -13,8 +13,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "DoubanBooktest500")//记得改！！！！！！
+@Table(name = "DoubanBooktest")//记得改！！！！！！
 public class DoubanBook {
+
+	private Integer id;
 	private String bookid;
 	private String title;
 	private String author;
@@ -38,57 +40,41 @@ public class DoubanBook {
 	}
 
 
+
 	@Override
 	public String toString() {
-		return "DoubanBook [bookid=" + bookid + ", title=" + title + ", author=" + author + ", publisher=" + publisher
-				+ ", pubdate=" + pubdate + ", pages=" + pages + ", price=" + price + ", binding=" + binding
-				+ ", isbn13=" + isbn13 + ", rating=" + rating + ", ratenum=" + ratenum + ", summary=" + summary
-				+ ", authorsummary=" + authorsummary + ", tags=" + tags + ", imagePath=" + imagePath + ", doings="
-				+ doings + ", collections=" + collections + ", wishes=" + wishes + "]";
+		return "DoubanBook [id=" + id + ", bookid=" + bookid + ", title=" + title + ", author=" + author
+				+ ", publisher=" + publisher + ", pubdate=" + pubdate + ", pages=" + pages + ", price=" + price
+				+ ", binding=" + binding + ", isbn13=" + isbn13 + ", rating=" + rating + ", ratenum=" + ratenum
+				+ ", summary=" + summary + ", authorsummary=" + authorsummary + ", tags=" + tags + ", imagePath="
+				+ imagePath + ", doings=" + doings + ", collections=" + collections + ", wishes=" + wishes + "]";
 	}
-
-
-	public DoubanBook(String bookid, String title, String author, String publisher, String pubdate, String pages,
-			String price, String binding, String isbn13, String rating, String ratenum, String summary,
-			String authorsummary, String tags, String imagePath, String doings, String collections, String wishes) {
-		super();
-		this.bookid = bookid;
-		this.title = title;
-		this.author = author;
-		this.publisher = publisher;
-		this.pubdate = pubdate;
-		this.pages = pages;
-		this.price = price;
-		this.binding = binding;
-		this.isbn13 = isbn13;
-		this.rating = rating;
-		this.ratenum = ratenum;
-		this.summary = summary;
-		this.authorsummary = authorsummary;
-		this.tags = tags;
-		this.imagePath = imagePath;
-		this.doings = doings;
-		this.collections = collections;
-		this.wishes = wishes;
-	}
-
 
 
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "bookid", nullable = false,unique=true)
+	@Column(name = "id", nullable = false,unique=true)
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Column(name = "bookid")
 	public String getBookid() {
 		return bookid;
 	}
-	
 	
 	public void setBookid(String bookid) {
 		this.bookid = bookid;
 	}
 	
 	
-	@Column(name = "ISBN13", nullable = false)
+	@Column(name = "ISBN13")
 	public String getIsbn13() {
 		return isbn13;
 	}

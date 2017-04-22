@@ -43,5 +43,13 @@ public class SessionFactoryUtil {
         if (sessionFactory != null)  
             sessionFactory.close();  
         sessionFactory = null;  
-    }  
+    }
+
+	/**
+     * 04.21新增
+     * @return
+     */
+    public static SessionFactory getSessionFactory() {  
+        return sessionFactory;  
+    }   
 }

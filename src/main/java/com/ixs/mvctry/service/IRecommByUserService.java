@@ -20,8 +20,9 @@ public interface IRecommByUserService {
 	/**
 	 * 取出新用户的喜欢图书
 	 */
-	
+	public List<DoubanBook> findNewLike();
 	/**
 	 * 取出新用户的不喜欢图书
 	 */
+	public List<DoubanBook> findNewUnLike();
 }

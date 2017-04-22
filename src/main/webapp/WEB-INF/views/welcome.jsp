@@ -8,6 +8,7 @@
 </head>
 <body>
  hi~<br/>
-  ${greeting}<br/>  alike:${alike}
+  猜你喜欢${likes}<br/>  猜你不喜欢:${unlikes}
+  ${greeting }
 </body>
 </html>

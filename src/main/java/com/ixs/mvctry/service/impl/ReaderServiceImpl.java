@@ -14,6 +14,9 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ixs.mvctry.dao.ICollectionDao;
+import com.ixs.mvctry.dao.IDouBanBookDao;
+import com.ixs.mvctry.dao.IReaderDao;
 import com.ixs.mvctry.dao.impl.CollectionDaoImpl;
 import com.ixs.mvctry.dao.impl.DouBanBookDaoImpl;
 import com.ixs.mvctry.dao.impl.ReaderDaoImpl;
@@ -26,11 +29,11 @@ import com.ixs.mvctry.service.IReaderService;
 public class ReaderServiceImpl implements IReaderService {
 
 	@Autowired
-	private ReaderDaoImpl readerDao;
+	private IReaderDao readerDao;
 	@Autowired
-	private CollectionDaoImpl collectionDao;
+	private ICollectionDao collectionDao;
 	@Autowired
-	private DouBanBookDaoImpl doubanbookDao;
+	private IDouBanBookDao doubanbookDao;
 
 	/**
 	 * 建立用户-书籍map
@@ -208,7 +211,7 @@ public class ReaderServiceImpl implements IReaderService {
 		recommBooks = getRecomm(reader, uAlikeTopMap, ubookmap);
 
 		// 找到对应的豆瓣图书
-		result = doubanbookDao.findDouBanBook(recommBooks);
+		result = doubanbookDao.findDouBanBookset(recommBooks);
 		return result;
 	}
 

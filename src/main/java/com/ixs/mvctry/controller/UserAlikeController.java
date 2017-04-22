@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ixs.mvctry.model.Reader;
+import com.ixs.mvctry.service.ICollectionService;
+import com.ixs.mvctry.service.IReaderServiceold;
 import com.ixs.mvctry.service.impl.CollectionServiceImpl;
 import com.ixs.mvctry.service.impl.ReaderServiceImplold;
 
@@ -23,9 +25,9 @@ import com.ixs.mvctry.service.impl.ReaderServiceImplold;
 @RequestMapping(value = "/user")
 public class UserAlikeController {
 	@Autowired
-	public CollectionServiceImpl collectionService;
+	public ICollectionService collectionService;
 	@Autowired
-	public ReaderServiceImplold ReaderService;
+	public IReaderServiceold ReaderService;
 
 	@RequestMapping(value = "/usertest", method = RequestMethod.GET)
 	public String getAlike(ModelMap model) {

@@ -14,4 +14,5 @@ public interface IDouBanBookDao {
 	 */
 	public List<DoubanBook> findDouBanBook(List<String> bookids);
 	
+	public List<DoubanBook> findDouBanBookset(Set<String> bookids);
 }

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ixs.mvctry.dao.IModelDao;
 import com.ixs.mvctry.dao.impl.ModelDaoImpl;
 import com.ixs.mvctry.model.T_Model;
 import com.ixs.mvctry.service.IModelService;
@@ -14,7 +15,7 @@ import com.ixs.mvctry.service.IModelService;
 public class ModelServiceImpl implements IModelService{
 	
 	@Autowired
-	private  ModelDaoImpl modelDao;
+	private  IModelDao modelDao;
 	
 	public void addModel( T_Model model)  {
 		// 如果不存在，调用dao方法添加样机

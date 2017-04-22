@@ -6,8 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ixs.mvctry.dao.IDouBanBookDao;
+import com.ixs.mvctry.dao.IRecommbookbyuserDao;
+import com.ixs.mvctry.dao.IRoutineDao;
 import com.ixs.mvctry.dao.impl.DouBanBookDaoImpl;
 import com.ixs.mvctry.dao.impl.RecommbookbyuserDaoImpl;
+import com.ixs.mvctry.dao.impl.RoutineDaoImpl;
 import com.ixs.mvctry.model.DoubanBook;
 import com.ixs.mvctry.model.Recommbookbyuser;
 import com.ixs.mvctry.service.IRecommByUserService;
@@ -16,9 +20,11 @@ import com.ixs.mvctry.util.split.SplitToList;
 public class RecommByUserServiceImpl implements IRecommByUserService {
 
 	@Autowired
-	private RecommbookbyuserDaoImpl recommUDao;
+	private IRecommbookbyuserDao recommUDao;
 	@Autowired
-	private DouBanBookDaoImpl doubanbookDao;
+	private IDouBanBookDao doubanbookDao;
+	@Autowired
+	private IRoutineDao routineDao;
 	
 	@Override
 	public List<DoubanBook> findlikeRecomm(String userid) {
@@ -41,6 +47,30 @@ public class RecommByUserServiceImpl implements IRecommByUserService {
 		stringlist=SplitToList.splitTolist(recomm.getUnlikebook());
 		unlikes=doubanbookDao.findDouBanBook(stringlist);
 		return unlikes;
+	}
+
+
+	@Override
+	public List<DoubanBook> findNewLike() {
+		String likes=routineDao.getNewlike();
+		List<String> stringlist=new ArrayList<String>();
+		stringlist=SplitToList.splitTolist(likes);
+		
+		List<DoubanBook> likebookslist=new ArrayList<DoubanBook>();
+		likebookslist=doubanbookDao.findDouBanBook(stringlist);
+		return likebookslist;
+	}
+
+
+	@Override
+	public List<DoubanBook> findNewUnLike() {
+		String unlikes=routineDao.getNewUnlike();
+		List<String> stringlist=new ArrayList<String>();
+		stringlist=SplitToList.splitTolist(unlikes);
+		
+		List<DoubanBook> unlikebookslist=new ArrayList<DoubanBook>();
+		unlikebookslist=doubanbookDao.findDouBanBook(stringlist);
+		return unlikebookslist;
 	}
 
 }

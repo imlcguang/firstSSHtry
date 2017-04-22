@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ixs.mvctry.model.T_Model;
+import com.ixs.mvctry.service.IModelService;
 import com.ixs.mvctry.service.impl.ModelServiceImpl;
 
 @SessionAttributes(value = "modelname")
@@ -15,7 +16,7 @@ import com.ixs.mvctry.service.impl.ModelServiceImpl;
 @RequestMapping(value = "/model")
 public class ModelController {
 	@Autowired
-	public ModelServiceImpl modelService;
+	public IModelService modelService;
 
 	/**
      * 保存添加的数据

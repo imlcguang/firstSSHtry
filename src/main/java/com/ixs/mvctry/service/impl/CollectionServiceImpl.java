@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ixs.mvctry.dao.ICollectionDao;
 import com.ixs.mvctry.dao.impl.CollectionDaoImpl;
 import com.ixs.mvctry.model.Collectbook;
 import com.ixs.mvctry.service.ICollectionService;
@@ -17,7 +18,7 @@ import com.ixs.mvctry.service.ICollectionService;
 public class CollectionServiceImpl implements ICollectionService {
 
 	@Autowired
-	private CollectionDaoImpl userDao;
+	private ICollectionDao userDao;
 
 	@Override
 	public Map<String, Set<String>> findBUser() {
