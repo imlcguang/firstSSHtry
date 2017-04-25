@@ -65,11 +65,13 @@ public class RecommByUserServiceImpl implements IRecommByUserService {
 	@Override
 	public List<DoubanBook> findNewUnLike() {
 		String unlikes=routineDao.getNewUnlike();
+		System.out.println("猜你不喜欢："+unlikes);
 		List<String> stringlist=new ArrayList<String>();
 		stringlist=SplitToList.splitTolist(unlikes);
 		
 		List<DoubanBook> unlikebookslist=new ArrayList<DoubanBook>();
 		unlikebookslist=doubanbookDao.findDouBanBook(stringlist);
+		System.out.println("猜你不喜欢一共："+unlikebookslist.size()+unlikebookslist.toString());
 		return unlikebookslist;
 	}
 

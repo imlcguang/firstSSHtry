@@ -31,7 +31,7 @@ public class HelloWorldController
 		
 //		modelServiceImpl.addModel(t_Model);
         model.addAttribute("greeting", "Hello World from lcxpg");  
-        return "welcome";  
+        return "savemodel";  
     }  
    
     @RequestMapping(value="/helloagain")  
@@ -39,14 +39,13 @@ public class HelloWorldController
         return "savemodel";  
     }  
    
-    @RequestMapping(value = "/todaytest")
+    @RequestMapping(value = "/todaytest12")
 	public String sayToday(ModelMap model) {
 		List<DoubanBook> likes=new ArrayList<DoubanBook>();
 		List<DoubanBook> unlikes=new ArrayList<DoubanBook>();
 		likes=recommByUserServiceImpl.findNewLike();
 		unlikes=recommByUserServiceImpl.findNewUnLike();
-		System.out.println("hello!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1"+likes.toString());
-		System.out.println("~~~~~~~~~~~~~~~~~~~");
+		System.out.println("controll"+unlikes.toString());
 		model.addAttribute("likes",likes );
 		model.addAttribute("unlikes",unlikes );
 		model.addAttribute("greeting", "Hello World from lcxpg");  

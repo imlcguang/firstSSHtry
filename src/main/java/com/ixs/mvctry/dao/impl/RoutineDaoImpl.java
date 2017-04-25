@@ -24,7 +24,7 @@ public class RoutineDaoImpl implements IRoutineDao {
 	@Override
 	public String getNewlike() {
 		Session session = this.getSession();
-		String hql = "select likebook FROM routine WHERE id=2 ";
+		String hql = "select likebook FROM Routine WHERE id=2 ";
 		List<String> result = session.createQuery(hql).list();
 
 		String like = null;
@@ -37,7 +37,7 @@ public class RoutineDaoImpl implements IRoutineDao {
 	@Override
 	public String getNewUnlike() {
 		Session session = this.getSession();
-		String hql = "select unlikebook FROM routine WHERE id=1 ";
+		String hql = "select unlikebook FROM Routine WHERE id=2 ";
 		List<String> result = session.createQuery(hql).list();
 
 		String unlike = null;

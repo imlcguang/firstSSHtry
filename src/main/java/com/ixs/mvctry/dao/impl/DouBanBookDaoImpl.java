@@ -27,11 +27,10 @@ public class DouBanBookDaoImpl implements IDouBanBookDao {
 	public List<DoubanBook> findDouBanBook(List<String> bookids) {
 		Session session = this.getSession();
 		List<DoubanBook> dbooks=new ArrayList<DoubanBook>();
-		String hql = "FROM doubanbook WHERE bookid = :id ";
+		String hql = "FROM DoubanBook WHERE bookid =?";
 		for (String id : bookids) {
-			List<DoubanBook> result = session.createQuery(hql).setParameter("id", bookids).list();
-			DoubanBook doubanBook=result.get(0);
-			dbooks.add(doubanBook);
+			DoubanBook doubanBook=(DoubanBook) session.createQuery(hql).setParameter(0, id).uniqueResult();
+				dbooks.add(doubanBook);
 		}
 		session.close();
 		return dbooks;
@@ -40,10 +39,9 @@ public class DouBanBookDaoImpl implements IDouBanBookDao {
 	public List<DoubanBook> findDouBanBookset(Set<String> bookids) {
 		Session session = this.getSession();
 		List<DoubanBook> dbooks=new ArrayList<DoubanBook>();
-		String hql = "FROM doubanbook WHERE bookid = :id ";
+		String hql = "FROM DoubanBook WHERE bookid =?";
 		for (String id : bookids) {
-			List<DoubanBook> result = session.createQuery(hql).setParameter("id", bookids).list();
-			DoubanBook doubanBook=result.get(0);
+			DoubanBook doubanBook =(DoubanBook) session.createQuery(hql).setParameter(0, id).uniqueResult();
 			dbooks.add(doubanBook);
 		}
 		session.close();
